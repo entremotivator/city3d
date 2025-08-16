@@ -1,12 +1,14 @@
-import { useGLTF } from '@react-three/drei';
+import { useGLTF } from "@react-three/drei";
 
-export function Jacob(props) {
-  const { nodes, materials } = useGLTF('/jacob/jacob.glb');
+export function Jacob({ reference, ...props }) {
+  const { nodes, materials } = useGLTF("/jacob/jacob.glb");
 
   return (
-    <group ref={props.reference} {...props} dispose={null}>
+    <group ref={reference} {...props} dispose={null}>
       <group rotation-x={-Math.PI / 2}>
         <primitive object={nodes.Hips} />
+        
+        {/* Outfit */}
         <skinnedMesh
           geometry={nodes.Wolf3D_Outfit_Bottom.geometry}
           material={materials.Wolf3D_Outfit_Bottom}
@@ -22,6 +24,8 @@ export function Jacob(props) {
           material={materials.Wolf3D_Outfit_Top}
           skeleton={nodes.Wolf3D_Outfit_Top.skeleton}
         />
+
+        {/* Hair / Accessories */}
         <skinnedMesh
           geometry={nodes.Wolf3D_Hair.geometry}
           material={materials.Wolf3D_Hair}
@@ -37,6 +41,8 @@ export function Jacob(props) {
           material={materials.Wolf3D_Facewear}
           skeleton={nodes.Wolf3D_Facewear.skeleton}
         />
+
+        {/* Eyes */}
         <skinnedMesh
           name="EyeLeft"
           geometry={nodes.EyeLeft.geometry}
@@ -53,6 +59,8 @@ export function Jacob(props) {
           morphTargetDictionary={nodes.EyeRight.morphTargetDictionary}
           morphTargetInfluences={nodes.EyeRight.morphTargetInfluences}
         />
+
+        {/* Head / Teeth */}
         <skinnedMesh
           name="Wolf3D_Head"
           geometry={nodes.Wolf3D_Head.geometry}
@@ -74,4 +82,4 @@ export function Jacob(props) {
   );
 }
 
-useGLTF.preload('/jacob/jacob.glb');
+useGLTF.preload("/jacob/jacob.glb");
